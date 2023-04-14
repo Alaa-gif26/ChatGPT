@@ -38,7 +38,13 @@ class _ChatViewState extends State<ChatView> {
             child: Image.asset(AssetsManager.openAiLogo),
           ),
           title: const Text("ChatGPT"),
-          actions: [IconButton(onPressed: (){}, icon: const Icon(Icons.more_vert_rounded,))],
+          actions: [
+            IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.more_vert_rounded,
+                ))
+          ],
         ),
         body: Center(
           child: SafeArea(
@@ -48,7 +54,7 @@ class _ChatViewState extends State<ChatView> {
                 child: ListView.builder(
                     itemCount: 5,
                     itemBuilder: ((context, index) {
-                      return ChatWidget();
+                      return ChatWidget(msg: chatMessages[index]["msg"].toString(), chatIndex: int.parse(chatMessages[index]["chatIndex"].toString()),);
                     })),
               ),
               if (isTyping) ...[
@@ -57,22 +63,29 @@ class _ChatViewState extends State<ChatView> {
                   size: 18,
                 )
               ],
-              SizedBox(height: 15,),
+              SizedBox(
+                height: 15,
+              ),
               Container(
                 color: cardColor,
                 padding: EdgeInsets.all(10),
                 child: Row(
                   children: [
-                    Expanded(child: TextField(
+                    Expanded(
+                        child: TextField(
                       style: TextStyle(color: Colors.grey),
                       controller: textEditingController,
-                      onSubmitted: (Value){
-                        
-                      },
-                      decoration: InputDecoration.collapsed(hintText: "How can i help you",hintStyle: TextStyle(color: Colors.grey)),
-              
+                      onSubmitted: (Value) {},
+                      decoration: InputDecoration.collapsed(
+                          hintText: "How can i help you",
+                          hintStyle: TextStyle(color: Colors.grey)),
                     )),
-                    IconButton(onPressed: (){}, icon: Icon(Icons.send,color: Colors.white,))
+                    IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.send,
+                          color: Colors.white,
+                        ))
                   ],
                 ),
               )
