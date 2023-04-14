@@ -4,6 +4,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:task5_chatgpt/constants.dart';
 import 'package:task5_chatgpt/services/assets_manager.dart';
+import 'package:task5_chatgpt/widgets/chat_widget.dart';
 
 class ChatView extends StatefulWidget {
   const ChatView({super.key});
@@ -47,7 +48,7 @@ class _ChatViewState extends State<ChatView> {
                 child: ListView.builder(
                     itemCount: 5,
                     itemBuilder: ((context, index) {
-                      return Text("hello");
+                      return ChatWidget();
                     })),
               ),
               if (isTyping) ...[
