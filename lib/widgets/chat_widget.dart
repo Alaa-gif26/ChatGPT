@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:task5_chatgpt/constants.dart';
+import 'package:task5_chatgpt/constants/constants.dart';
 import 'package:task5_chatgpt/services/assets_manager.dart';
 import 'package:task5_chatgpt/widgets/text_widget.dart';
 

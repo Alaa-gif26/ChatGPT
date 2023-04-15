@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:task5_chatgpt/constants.dart';
+import 'package:task5_chatgpt/constants/constants.dart';
 import 'package:task5_chatgpt/views/chat_view.dart';
 
 void main() {

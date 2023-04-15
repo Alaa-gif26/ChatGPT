@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:task5_chatgpt/constants.dart';
+import 'package:task5_chatgpt/constants/constants.dart';
 
 class ModalDropDownWidget extends StatefulWidget {
   const ModalDropDownWidget({super.key});

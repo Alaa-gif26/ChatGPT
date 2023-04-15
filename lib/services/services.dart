@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:task5_chatgpt/widgets/drop_down_widget.dart';
 
-import '../constants.dart';
+import '../constants/constants.dart';
 import '../widgets/text_widget.dart';
 
 class Services {
