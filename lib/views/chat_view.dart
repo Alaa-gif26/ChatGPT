@@ -1,10 +1,14 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:task5_chatgpt/constants.dart';
 import 'package:task5_chatgpt/services/assets_manager.dart';
+import 'package:task5_chatgpt/services/services.dart';
 import 'package:task5_chatgpt/widgets/chat_widget.dart';
+import 'package:task5_chatgpt/widgets/text_widget.dart';
 
 class ChatView extends StatefulWidget {
   const ChatView({super.key});
@@ -40,7 +44,9 @@ class _ChatViewState extends State<ChatView> {
           title: const Text("ChatGPT"),
           actions: [
             IconButton(
-                onPressed: () {},
+                onPressed: () async {
+                  await Services.showModalSheet(context: context);
+                },
                 icon: const Icon(
                   Icons.more_vert_rounded,
                 ))
@@ -52,9 +58,13 @@ class _ChatViewState extends State<ChatView> {
             children: [
               Flexible(
                 child: ListView.builder(
-                    itemCount: 5,
+                    itemCount: 3,
                     itemBuilder: ((context, index) {
-                      return ChatWidget(msg: chatMessages[index]["msg"].toString(), chatIndex: int.parse(chatMessages[index]["chatIndex"].toString()),);
+                      return ChatWidget(
+                        msg: chatMessages[index]["msg"].toString(),
+                        chatIndex: int.parse(
+                            chatMessages[index]["chatIndex"].toString()),
+                      );
                     })),
               ),
               if (isTyping) ...[

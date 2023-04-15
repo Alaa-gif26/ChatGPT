@@ -9,11 +9,13 @@ final chatMessages = [
     "chatIndex": 0,
   },
   {
-    "msg": "hello ",
+    "msg":
+        "hello jkljlkjl;jopiewwerffwhgduhiasjod[pso][fpcd][zxv',cxvm,clmvklcljvkoijfkgvjfklljdpojkv lkxjclvjfkjhgjhfjkkdnvjkcc]",
     "chatIndex": 1,
   },
   {
-    "msg": "hello jopojopj",
+    "msg":
+        "hello jopojopjjkljkljlkjklhjlkjlkjljlkjlkjljlkjlkjlkjtttfsdfgfdyasyuggaaaaaaaaaaaaa;;;;;;;;yyyyyyyyytttttttttggggggffffffffffff",
     "chatIndex": 0,
   },
 ];
