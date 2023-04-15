@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task5_chatgpt/widgets/drop_down_widget.dart';
 
 import '../constants.dart';
 import '../widgets/text_widget.dart';
@@ -13,13 +14,14 @@ class Services {
         builder: (context) {
           return Padding(
             padding: EdgeInsets.all(18),
-            child: Row(
+            child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Flexible(
                     child: TextWidget(
                   label: "chosen model:",
                   fontSize: 16,
-                ))
+                )),
+                Flexible(flex: 2, child: ModalDropDownWidget()),
               ],
             ),
           );
