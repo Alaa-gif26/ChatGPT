@@ -4,12 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:provider/provider.dart';
 import 'package:task5_chatgpt/constants/constants.dart';
 import 'package:task5_chatgpt/services/api_services.dart';
 import 'package:task5_chatgpt/services/assets_manager.dart';
 import 'package:task5_chatgpt/services/services.dart';
 import 'package:task5_chatgpt/widgets/chat_widget.dart';
 import 'package:task5_chatgpt/widgets/text_widget.dart';
+
+import '../providers/models_provider.dart';
 
 class ChatView extends StatefulWidget {
   const ChatView({super.key});
@@ -19,7 +22,7 @@ class ChatView extends StatefulWidget {
 }
 
 class _ChatViewState extends State<ChatView> {
-  bool isTyping = true;
+  bool isTyping = false;
   late TextEditingController textEditingController;
   @override
   void initState() {
@@ -35,6 +38,7 @@ class _ChatViewState extends State<ChatView> {
 
   @override
   Widget build(BuildContext context) {
+        final modelsProvider = Provider.of<ModelsProvider>(context);
     return Scaffold(
         appBar: AppBar(
           elevation: 2,
@@ -94,9 +98,18 @@ class _ChatViewState extends State<ChatView> {
                     IconButton(
                         onPressed: () async {
                           try {
-                            await ApiService.getModels();
+                            setState(() {
+                              isTyping=true;
+                            });
+                         final List=   await ApiService.sendMessage(message: textEditingController.text,modelId:modelsProvider.getCurrentModel );
                           } catch (error) {
                             print("error $error");
+
+                          }
+                          finally {
+                            setState(() {
+                              isTyping=false;
+                            });
                           }
                         },
                         icon: Icon(
