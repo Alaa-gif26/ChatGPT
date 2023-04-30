@@ -25,7 +25,7 @@ Color cardColor = const Color(0xFF444654);
  // return modelsItems;
 //}
 
-final chatMessages = [
+/**final chatMessages = [
   {
     "msg": "hello how are you",
     "chatIndex": 0,
@@ -40,4 +40,4 @@ final chatMessages = [
         "hello jopojopjjkljkljlkjklhjlkjlkjljlkjlkjljlkjlkjlkjtttfsdfgfdyasyuggaaaaaaaaaaaaa;;;;;;;;yyyyyyyyytttttttttggggggffffffffffff",
     "chatIndex": 0,
   },
-];
+];*/

@@ -6,6 +6,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:task5_chatgpt/constants/constants.dart';
+import 'package:task5_chatgpt/models/chat_models.dart';
 import 'package:task5_chatgpt/services/api_services.dart';
 import 'package:task5_chatgpt/services/assets_manager.dart';
 import 'package:task5_chatgpt/services/services.dart';
@@ -24,21 +25,25 @@ class ChatView extends StatefulWidget {
 class _ChatViewState extends State<ChatView> {
   bool isTyping = false;
   late TextEditingController textEditingController;
+  late FocusNode focusNode;
   @override
   void initState() {
     textEditingController = TextEditingController();
+    focusNode = FocusNode();
     super.initState();
   }
 
   @override
   void dispose() {
     textEditingController.dispose();
+    focusNode.dispose();
     super.dispose();
   }
 
+  List<ChatModel> chatList = [];
   @override
   Widget build(BuildContext context) {
-        final modelsProvider = Provider.of<ModelsProvider>(context);
+    final modelsProvider = Provider.of<ModelsProvider>(context);
     return Scaffold(
         appBar: AppBar(
           elevation: 2,
@@ -63,12 +68,11 @@ class _ChatViewState extends State<ChatView> {
             children: [
               Flexible(
                 child: ListView.builder(
-                    itemCount: 3,
+                    itemCount: chatList.length,
                     itemBuilder: ((context, index) {
                       return ChatWidget(
-                        msg: chatMessages[index]["msg"].toString(),
-                        chatIndex: int.parse(
-                            chatMessages[index]["chatIndex"].toString()),
+                        msg: chatList[index].msg,
+                        chatIndex: chatList[index].chatIndex,
                       );
                     })),
               ),
@@ -88,29 +92,19 @@ class _ChatViewState extends State<ChatView> {
                   children: [
                     Expanded(
                         child: TextField(
+                      focusNode: focusNode,
                       style: TextStyle(color: Colors.grey),
                       controller: textEditingController,
-                      onSubmitted: (Value) {},
+                      onSubmitted: (Value) async {
+                        await sendMessageFun(modelsProvider: modelsProvider);
+                      },
                       decoration: InputDecoration.collapsed(
                           hintText: "How can i help you",
                           hintStyle: TextStyle(color: Colors.grey)),
                     )),
                     IconButton(
                         onPressed: () async {
-                          try {
-                            setState(() {
-                              isTyping=true;
-                            });
-                         final List=   await ApiService.sendMessage(message: textEditingController.text,modelId:modelsProvider.getCurrentModel );
-                          } catch (error) {
-                            print("error $error");
-
-                          }
-                          finally {
-                            setState(() {
-                              isTyping=false;
-                            });
-                          }
+                          await sendMessageFun(modelsProvider: modelsProvider);
                         },
                         icon: Icon(
                           Icons.send,
@@ -122,5 +116,26 @@ class _ChatViewState extends State<ChatView> {
             ],
           )),
         ));
+  }
+
+  Future<void> sendMessageFun({required ModelsProvider modelsProvider}) async {
+    try {
+      setState(() {
+        isTyping = true;
+        chatList.add(ChatModel(msg: textEditingController.text, chatIndex: 0));
+        textEditingController.clear();
+        focusNode.unfocus();
+      });
+      chatList.addAll(await ApiService.sendMessage(
+          message: textEditingController.text,
+          modelId: modelsProvider.getCurrentModel));
+      setState(() {});
+    } catch (error) {
+      print("error $error");
+    } finally {
+      setState(() {
+        isTyping = false;
+      });
+    }
   }
 }

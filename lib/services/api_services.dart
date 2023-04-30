@@ -37,7 +37,7 @@ class ApiService {
   static Future<List<ChatModel>> sendMessage(
       {required String message, required String modelId}) async {
     try {
-    var response = await http.post(Uri.parse("$BaseUrl/completions"),
+    var response = await http.post(Uri.parse("$BaseUrl/chat/completions"),
           headers: {
             "Authorization": "Bearer $ApiKey",
             "Content-Type" :"application/json",
