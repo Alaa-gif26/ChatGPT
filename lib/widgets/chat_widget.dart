@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -16,24 +17,48 @@ class ChatWidget extends StatelessWidget {
       children: [
         Container(
           padding: const EdgeInsets.all(10),
-          color: chatIndex==0 ?scaffoldBackgroundColor:cardColor,
-          child: Row(crossAxisAlignment: CrossAxisAlignment.start,
+          color: chatIndex == 0 ? scaffoldBackgroundColor : cardColor,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Image.asset(
-                chatIndex==0 ? AssetsManager.userImage: AssetsManager.botImage,
+                chatIndex == 0
+                    ? AssetsManager.userImage
+                    : AssetsManager.botImage,
                 width: 30,
                 height: 30,
               ),
-              Expanded(child: TextWidget(label: msg)),
-              chatIndex==0 ? SizedBox.shrink():Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                mainAxisSize: MainAxisSize.min,
-                children:const [
-                  Icon(Icons.thumb_up_alt_outlined,color: Colors.white,),
-                  SizedBox(width: 5,),
-                  Icon(Icons.thumb_down_alt_outlined,color: Colors.white,)
-                ],
+              Expanded(
+                child: chatIndex == 0
+                    ? TextWidget(label: msg)
+                    : DefaultTextStyle(
+                      style: TextStyle(color: Colors.white,fontWeight: FontWeight.w700,fontSize: 16),
+                      child: AnimatedTextKit(
+                        isRepeatingAnimation: false,
+                         repeatForever: false,
+                         
+                          animatedTexts: [TyperAnimatedText(msg.trim())]),
+                    ),
               ),
+              chatIndex == 0
+                  ? const SizedBox.shrink()
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisSize: MainAxisSize.min,
+                      children: const [
+                        Icon(
+                          Icons.thumb_up_alt_outlined,
+                          color: Colors.white,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Icon(
+                          Icons.thumb_down_alt_outlined,
+                          color: Colors.white,
+                        )
+                      ],
+                    ),
             ],
           ),
         )
